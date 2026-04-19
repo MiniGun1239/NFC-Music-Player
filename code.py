@@ -31,7 +31,7 @@ audioFileMapping = {
     # "keyword_on_the_nfc_card" : "audio_file_name"
 }
 
-FAILURE = "failure"
+FAILURE = audioFileMapping.get("failure")
 # ---
 
 
@@ -138,7 +138,7 @@ def playAudio(name):
         if DEBUG:
             print("[DEBUG] File not found")
         if not player.is_playing():
-            loadAudio(audioFileMapping["failure"])
+            loadAudio(FAILURE)
             player.play()
         else:
             return
