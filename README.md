@@ -15,6 +15,9 @@ Pictures
 ### With protective lid
 ![img3.png](resources/With_protective_lid.png)
 
+### Wiring Diagram
+![Wiring_Diagram.png](resources/Aeyro-MusicPlayer_Wiring_Diagram.png)
+
 BOM
 ---
 | Name                       | Purpose                                | Quantity | Total Cost (USD) | Link                                                       | Distributor     |

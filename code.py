@@ -22,6 +22,13 @@ DEBUG = True
 # ---
 
 
+# --- VAR INIT ---
+uid = None
+keyword = None
+PREVIOUS_KEYWORD = None
+# ---
+
+
 # --- PATH SETUP ---
 home = Path.home()
 projectDir = home / ".local" / "share" / "Aeyro-MusicPlayer"
@@ -51,13 +58,6 @@ pn532 = PN532_I2C(i2c)
 pn532.SAM_configuration()
 
 ic, ver, rev, support = pn532.firmware_version
-# ---
-
-
-# --- VAR INIT ---
-uid = None
-keyword = None
-PREVIOUS_KEYWORD = None
 # ---
 
 if DEBUG:
@@ -143,21 +143,13 @@ def loadFailure():
     player.set_media(media)
 
 
-# Plays audio
-def playAudio(name):
-    commandUsage = basicIO(name)
-
-    if commandUsage == 1:
-        return
-
-    filename = audioFileMapping.get(name)
-
-    # --- Play Audio ---
+def playAudio(filename):
     if filename:
         loadAudio(filename)
+        if DEBUG:
+            print("[DEBUG] Playing Audio: ", filename)
         player.play()
         return
-
     else: # if not filename
         if DEBUG:
             print("[DEBUG] File not found")
@@ -166,7 +158,19 @@ def playAudio(name):
             player.play()
         else:
             return
+
+# Plays audio
+def handleKeyword(name):
+    # check if command is used or not
+    if basicIO(name) == 1:
+        return
+
+    filename = audioFileMapping.get(name)
+
+    # --- Play Audio ---
+    playAudio(filename)
     # ---
+    return
 
 
 while True:
@@ -199,7 +203,7 @@ while True:
             if DEBUG:
                 print("[DEBUG] Playing Audio")
             PREVIOUS_KEYWORD = keyword
-            playAudio(keyword)
+            handleKeyword(keyword)
         else:
             if DEBUG:
                 print("[DEBUG] Same Keyword")
