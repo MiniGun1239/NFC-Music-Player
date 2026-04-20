@@ -1,4 +1,4 @@
-# TO DO:
+# TO DO (Feature Creep, not essential):
 # Auto find audio files
 # Next Audio file feature
 # Auto next feature
